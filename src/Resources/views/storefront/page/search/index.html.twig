@@ -1,0 +1,12 @@
+{% sw_extends '@Storefront/storefront/page/search/index.html.twig' %}
+
+{% block page_search_headline_text %}
+    {% if page.imageBlob %}
+        {{ "search.headline"|trans({
+            '%count%': page.listing.total,
+            '%searchTerm%': '<img src="data:image/jpeg;base64, ' ~  page.imageBlob ~ '" alt="">',
+        })|raw }}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}

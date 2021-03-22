@@ -1,0 +1,31 @@
+.header-search-image-btn {
+    padding-right: 0;
+
+    &:hover {
+        cursor: pointer;
+
+        ~a {
+            display: inline-block;
+        }
+    }
+
+    img {
+        max-height: 30px;
+    }
+}
+.header-search-image-btn~a {
+    position: absolute;
+    z-index: 10;
+    display: none;
+
+    &:hover {
+        display: inline-block;
+        cursor: pointer;
+    }
+}
+
+.search-headline {
+    img {
+        max-width: 200px;
+    }
+}

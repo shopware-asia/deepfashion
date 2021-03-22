@@ -1,0 +1,64 @@
+{% sw_extends '@Storefront/storefront/layout/header/search.html.twig' %}
+
+{% block layout_header_search %}
+    <div class="collapse"
+         id="searchCollapse">
+        <div class="header-search">
+            <form enctype="multipart/form-data" id="search-by-image-form" action="{{ path('frontend.search.image') }}" method="post">
+                <input type="file" name="image" class="d-none header-search-image-file" accept="image/*" />
+            </form>
+            <form action="{{ path('frontend.search.page') }}"
+                  method="get"
+                  data-search-form="true"
+                  data-url="{{ path('frontend.search.suggest') }}?search="
+                  class="header-search-form">
+                {% block layout_header_search_input_group %}
+                    <div class="input-group">
+                        {% block layout_header_search_input %}
+                            <input type="search"
+                                   name="search"
+                                   class="form-control header-search-input"
+                                   autocomplete="off"
+                                   autocapitalize="off"
+                                   placeholder="{{ "header.searchPlaceholder"|trans|striptags }}"
+                                   aria-label="{{ "header.searchPlaceholder"|trans|striptags }}"
+                                   value="{{ page.searchTerm }}"
+                            >
+                        {% endblock %}
+
+                        {% block layout_header_search_button %}
+                            {% block layout_header_upload_image_button %}
+                                {% if page.imageBlob %}
+                                    <div class="input-group-append" data-search-by-image-form="true">
+                                        <a class="btn header-search-image-btn header-search-btn">
+                                            <img src="data:image/jpeg;base64, {{ page.imageBlob }}" alt="">
+                                        </a>
+                                        <a href="{{ path('frontend.home.page') }}">{% sw_icon 'x-circle' style {
+                                                'color': 'xs'
+                                            } %}</a>
+                                    </div>
+                                {% else %}
+                                    <div class="input-group-append" data-search-by-image-form="true">
+                                        <a class="btn header-search-image-btn header-search-btn">
+                                            {% sw_icon 'image' %}
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            {% endblock %}
+
+                            <div class="input-group-append">
+                                <button type="submit"
+                                        class="btn header-search-btn"
+                                        aria-label="{{ "header.searchButton"|trans|striptags }}">
+                                    <span class="header-search-icon">
+                                        {% sw_icon 'search' %}
+                                    </span>
+                                </button>
+                            </div>
+                        {% endblock %}
+                    </div>
+                {% endblock %}
+            </form>
+        </div>
+    </div>
+{% endblock %}

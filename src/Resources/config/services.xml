@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="DeepFashion\Content\DeepFashionSeeder\DeepFashionProductMediaSeeder">
+            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\Write\EntityWriter" />
+            <argument type="service" id="Shopware\Core\Content\Media\File\FileSaver" />
+            <argument type="service" id="Shopware\Core\Content\Media\File\FileNameProvider" />
+            <argument type="service" id="media_default_folder.repository" />
+            <argument type="service" id="media_folder.repository" />
+            <argument type="service" id="Shopware\Core\Content\Media\MediaDefinition"/>
+        </service>
+
+        <service id="DeepFashion\Content\DeepFashionSeeder\DeepFashionProductSeeder">
+            <argument type="service" id="tax.repository" />
+            <argument type="service" id="Doctrine\DBAL\Connection" />
+        </service>
+
+        <service id="DeepFashion\Content\DeepFashionSeeder\DeepFashionSeeder">
+            <argument>%kernel.project_dir%</argument>
+            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+            <argument type="service" id="DeepFashion\Content\DeepFashionSeeder\DeepFashionProductSeeder"/>
+            <argument type="service" id="DeepFashion\Content\DeepFashionSeeder\DeepFashionProductMediaSeeder"/>
+        </service>
+
+        <service id="DeepFashion\Content\DeepFashionSeeder\DeepFashionCommand">
+            <argument type="service" id="DeepFashion\Content\DeepFashionSeeder\DeepFashionSeeder"/>
+            <argument type="service" id="event_dispatcher" />
+            <argument>%kernel.environment%</argument>
+
+            <tag name="console.command"/>
+        </service>
+
+        <service id="DeepFashion\Content\Controller\SearchController" public="true">
+            <argument type="service" id="Shopware\Storefront\Page\Search\SearchPageLoader"/>
+            <argument type="service" id="Shopware\Storefront\Page\Suggest\SuggestPageLoader"/>
+            <argument type="service" id="Shopware\Core\Content\Product\SalesChannel\Search\ProductSearchRoute"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+    </services>
+</container>

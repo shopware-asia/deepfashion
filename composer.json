@@ -1,0 +1,19 @@
+{
+  "name": "nfq/deep-fashion",
+  "version": "1.0.0",
+  "description": "Deep Fashion Demo Plugin for SW6",
+  "type": "shopware-platform-plugin",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "DeepFashion\\": "src/"
+    }
+  },
+  "extra": {
+    "shopware-plugin-class": "DeepFashion\\DeepFashion",
+    "label": {
+      "de-DE": "Deep Fashion Demo plugin",
+      "en-GB": "Deep Fashion Demo plugin"
+    }
+  }
+}
